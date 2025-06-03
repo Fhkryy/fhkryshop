@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Fhkryshop.id</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .page-header {
+      position: relative;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      padding: 10px;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .page-header h1, .page-header h5 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: #000;
+      text-shadow: 1px 1px 4px rgba(255, 75, 43, 0.8);
+    }
+
+    .hamburger {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 40px;
+      cursor: pointer;
+      color: red;
+      z-index: 3;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s ease;
+      z-index: 10;
+    }
+
+    .side-menu h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 20px;
+      border-bottom: 1px solid #fff;
+      padding-bottom: 10px;
+    }
+
+    .side-menu a {
+      display: block;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      border-bottom: 1px solid #444;
+    }
+
+    .side-menu a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .side-menu .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 1200px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      color: black;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .product h4 {
+      margin: 0 0 10px;
+    }
+
+    .product p.product-description {
+      margin: 0 0 10px;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    .benefits {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #333;
+      text-align: left;
+    }
+
+    .benefits li {
+      margin-bottom: 4px;
+    }
+
+    .order-button {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      padding: 12px;
+      width: 85%;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px auto 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .order-button:hover {
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+      transform: scale(1.04);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 10px;
+    }
+
+    .modal-content a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px auto;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      width: 80%;
+    }
+
+    .modal-content a.whatsapp {
+      background-color: #25D366;
+    }
+
+    .modal-content a.telegram {
+      background-color: #0088cc;
+    }
+
+    .close {
+      color: #333;
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="bg-video" autoplay muted loop>
+    <source src="https://files.catbox.moe/mzlyw6.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+
+  <div class="hamburger" onclick="openMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+   <div class="side-menu" id="sideMenu">
+    <div class="close-menu" onclick="closeMenu()">X</div>
+    <h3>Produk</h3>
+    <a href="#" onclick="filterProduk('all')">Semua Produk</a>
+    <a href="#" onclick="filterProduk('vps')">VPS Digital Ocean</a>
+    <a href="#" onclick="filterProduk('panel')">Panel Pterodactyl Private</a>
+    <a href="#" onclick="filterProduk('resellerpanel')">Reseller Panel Private</a>
+    <a href="#" onclick="filterProduk('script')">Script Bot Whatsapp</a>
+    <a href="#" onclick="filterProduk('sewabot')">Sewabot</a>
+    <a href="#" onclick="filterProduk('jasa')">All Jasa</a>
+    <a href="#" onclick="filterProduk('jasher')">Jasa Share</a>
+    <a href="#" onclick="filterProduk('murbugvvip')">Murbug VVIP</a>
+    <a href="#" onclick="filterProduk('resellertopup')">Reseller Topup</a>
+    <a href="#" onclick="filterProduk('nokos')">Nokos All Apk</a>
+    <div class="footer">FhkryxzOffc</div>
+  </div>
+
+  <header class="page-header">
+    <h1>Fhkry Shop</h1>
+    <h5>Menyediakan Produk Digital</h5>
+  </header>
+
+  <div class="product-list" id="produkList">
+
+     <div class="product" data-kategori="vps">
+      <h4>Reseller Vps DO</h4>
+      <p>Rp 95.000</p>
+      <p class="product-description">Virtual Private Server Digital Ocean Bill Paypal.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Dapet Harga Khusus</li>
+      <li>✓ Modal Kecil</li>
+      <li>✓ Untung Banyak</li>
+      <li>✓ Dijamin Balmod Kalo Berusaha</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Reseller Vps', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+  
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 2GB CORE 2</h4>
+      <p>Rp 20.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 4GB CORE 2</h4>
+      <p>Rp 25.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 8GB CORE 4</h4>
+      <p>Rp 35.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 16GB CORE 4</h4>
+      <p>Rp 40.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 16GB CORE 8</h4>
+      <p>Rp 45.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="vps">
+      <h4>Virtual Private Server Digital Ocean 32GB CORE 8</h4>
+      <p>Rp 60.000</p>
+      <p class="product-description">Vps High Quality Bergaransi</p>
+      <ul class="benefits"></li>Benefit</li>
+      <li>✓ Free Install Panel</li>
+      <li>✓ Free Install Thema Ram 8/16</li>
+      <li>✓ Free Req Nama Domain</li>
+      <li>✓ Free Install Node & Wings</li>
+      <li>✓ Free Install Egg Node 18-23</li>
+      <li>✓ Aktif 30 Hari</li>
+      <li>✓ Garansi 20 Hari (1x Replace)</li>
+      <li>✓ Langsung Bisa Dipakai</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Virtual Private Server', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+
+    <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 1GB</h4>
+      <p>Rp 1.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 2GB</h4>
+      <p>Rp 2.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 3GB</h4>
+      <p>Rp 3.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 4GB</h4>
+      <p>Rp 4.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 5GB</h4>
+      <p>Rp 5.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 6GB</h4>
+      <p>Rp 6.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 7GB</h4>
+      <p>Rp 7.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 8GB</h4>
+      <p>Rp 8.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private 9GB</h4>
+      <p>Rp 9.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+        <div class="product" data-kategori="panel">
+      <h4>Panel Pterodactyl Private Unlimited</h4>
+      <p>Rp 10.000</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+      <li>✓ Garansi 20 Hari Full</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+
+            <div class="product" data-kategori="resellerpanel">
+      <h4>Reseller Panel Pterodactyl Private</h4>
+      <p>Rp 7.000/Bulan | Rp 10.000/Permanent</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Bisa Jualan Panel Private</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="resellerpanel">
+      <h4>Owner Reseller Panel Pterodactyl Private</h4>
+      <p>Rp 15.000/Bulan | Rp 20.000/Permanent</p>
+      <p class="product-description">Panel High Quality Bergaransi.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Bisa Jualan Panel Private</li>
+      <li>✓ Bisa Jualan Reseller Panel Private</li>
+      <li>✓ Panel Aman</li>
+      <li>✓ Anti Delay</li>
+      <li>✓ Anti Maling Script</li>
+      <li>✓ Spek 16GB CORE4<
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="jasa">
+      <h4>Jasa Rename Script</h4>
+      <p>Rp 5.000 Sampai Rp 10.000</p>
+      <p class="product-description">Harga Tergantung Kesulitan Dan Banyaknya Code.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Rename Sampe Ke Akar Akarnya</li>
+      <li>✓ Anti Error</li>
+      <li>✓ Free Req Name Dll</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Rename All Script Wajib No Enc Hard', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="jasa">
+      <h4>Jasa Encrypt Script [Enkripsi]</h4>
+      <p>Rp 5.000 Sampai Rp 10.000</p>
+      <p class="product-description">Enkripsi Agar Orang Tidak Bisa Asal Rename.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Script Anti Error</li>
+      <li>✓ Bisa Enc Hard</li>
+      <li>✓ Bisa Enc Custom Name</li>
+      <li>✓ Bisa Enc Bahasa Luar</li>
+      <li>✓ Bisa Enc Biasa</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Enkripsi All Script Bebas Request', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="script">
+      <h4>Script Bot Whatsapp Digiflazz</h4>
+      <p>Rp 40.000</p>
+      <p class="product-description">Script Bot Whatsapp Yang Terintegrasi Dengan Digiflazz.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Fitur Simple</li>
+      <li>✓ Tanpa Prefix [Lebih Mudah]</li>
+      <li>✓ Topup Game/Lainnya</li>
+      <li>✓ Bisa Open Reseller Topup</li>
+      <li>✓ Dapet Tutor Pembuatan Akun</li>
+      <li>✓ Dapet Tutor Integrasi Ke Panel</li>
+      <li>✓ No Enc 100%</li>
+      <li>✓ Free Panel Private 20 Hari</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Script Bot Digiflazz', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="script">
+      <h4>Elaina-MD</h4>
+      <p>Rp 35.000</p>
+      <p class="product-description">Script Yang Simple Dan Menggunakan Button.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Fitur Jibun</li>
+      <li>✓ No Button</li>
+      <li>✓ Tampilan Keren</li>
+      <li>✓ No Enc 100%</li>
+      <li>✓ Pemakaian Mudah</li>
+      <li>✓ Free Panel Private 20 Hari</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Script Elaina-MD', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="script">
+      <h4>Script Bot Whatsapp Simple Bot V8</h4>
+      <p>Rp 35.000</p>
+      <p class="product-description">Script Bot Whatsapp Serba Otomatis Integrasi Dengan Order Kuota.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Fitur Simple</li>
+      <li>✓ Buy Otomatis</li>
+      <li>✓ No Enc</li>
+      <li>✓ Add Database</li>
+      <li>✓ Free Update</li>
+      <li>✓ Free Panel Private 20 Hari</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Simple V8', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="script">
+      <h4>Base Script Bot Whatsapp</h4>
+      <p>Rp 10.000</p>
+      <p class="product-description">Cocok Untuk Yang Ingin Belajar Membuat Script.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Cocok Untuk Buat Script</li>
+      <li>✓ Anti Error</li>
+      <li>✓ Support Button</li>
+      <li>✓ Support Pairing Code</li>
+      <li>✓ Support Custom Pairing Code</li>
+      <li>✓ Support QR Code</li>
+      <li>✓ Tanpa Ribet Mulai Dari Awal</li>
+      <li>✓ No Enc 100%</li>
+      <li>✓ Free Panel Private 20 Hari</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Base Bot Whatsapp', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="script">
+      <h4>Script Bot Whatsapp FhkryxzXT</h4>
+      <p>Rp 5.000 [Enc] | Rp 10.000 [No Enc]</p>
+      <p class="product-description">Script Yang Simple Dan Menggunakan Button.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Fitur Simple</li>
+      <li>✓ Cpanel 5 Server</li>
+      <li>✓ Jpm Menu</li>
+      <li>✓ Support Pairing</li>
+      <li>✓ Support Custom Pairing Code</li>
+      <li>✓ Support QR Code</li>
+      <li>✓ Add database</li>
+      <li>✓ Free Panel Private 20 Hari</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Script Simple', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="sewabot">
+      <h4>Sewa Bot MD</h4>
+      <p>Rp 8.000 / 1 Bulan</p>
+      <p>Rp 15.000 / 2 Bulan</p>
+      <p>Rp 22.000 / 3 Bulan</p>
+      <p>Rp 40.000 / Permanent</p>
+      <p class="product-description">Bot Untuk Menjaga Group Dari Para Perusuh Dan Untuk Bermain.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Menu Jibun</p>
+      <li>✓ Akses Fitur Premium</p>
+      <li>✓ Fitur Rpg</p>
+      <li>✓ Fitur Group</p>
+      <li>✓ Tanpa Batasan Akses</p>
+      <li>✓ Bot On 24 Jam Tanpa Off Kecuali Kenon</p>
+     </ul>
+      <button class="order-button" onclick="openModal('Sewa Bot MD', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="sewabot">
+      <h4>Jadi Bot MD</h4>
+      <p>Rp 10.000 / 1 Bulan</p>
+      <p>Rp 18.000 / 2 Bulan</p>
+      <p>Rp 27.000 / 3 Bulan</p>
+      <p>Rp 40.000 / Permanent</p>
+      <p class="product-description">Bot Untuk Menjaga Group Dari Para Perusuh Dan Untuk Bermain.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Menu Jibun</p>
+      <li>✓ Akses Fitur Premium</p>
+      <li>✓ Akses Fitur Owner</p>
+      <li>✓ Fitur Rpg</p>
+      <li>✓ Fitur Group</p>
+      <li>✓ Tanpa Batasan Akses</p>
+      <li>✓ Menggunakan Nomor Sendiri</p>
+      <li>✓ Panel On 24 Jam Tanpa Off Kecuali Ddos</p>
+     </ul>
+      <button class="order-button" onclick="openModal('Jadi Bot MD', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+            <div class="product" data-kategori="jasher">
+      <h4>Owner Jasher Public</h4>
+      <p>Rp 15.000</p>
+      <p class="product-description">Own Jasher Tergacor.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Bisa Open Jasher</li>
+      <li>✓ Bisa PP GC</li>
+      <li>✓ Bisa PP CH</li>
+      <li>✓ Bisa PP CH Lu</li>
+      <li>✓ Di Add 2-5 Bot Prib</li>
+      <li>✓ Ch Bot 300+</li>
+      <li>✓ Anti BT Bot</li>
+      <li>✓ Deres Buyer</li>
+      <li>✓ Balmod Jika Niat</li>
+      <li>✓ 100% Diurus</li>
+      <li>✓ Jeda 10 Menit</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Owner Jasa Share 100% Diurus', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="jasher">
+      <h4>Owner Jasher Private</h4>
+      <p>Rp 20.000</p>
+      <p class="product-description">Own Jasher Tergacor.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Buat GB Sendiri Hanya Ada Bot Sama Lu</li>
+      <li>✓ Bisa Open Jasher</li>
+      <li>✓ Bisa PP GC</li>
+      <li>✓ Bisa PP CH</li>
+      <li>✓ Bisa PP CH Lu</li>
+      <li>✓ Di Add 2-5 Bot Prib</li>
+      <li>✓ Ch Bot 300+</li>
+      <li>✓ Anti BT Bot</li>
+      <li>✓ Ch Aktif</li>
+      <li>✓ Deres Buyer</li>
+      <li>✓ Balmod Jika Niat</li>
+      <li>✓ 100% Diurus</li>
+      <li>✓ Jeda 8 Menit</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Owner Jasa Share 100% Diurus', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="murbugvvip">
+      <h4>Murid Bug VVIP</h4>
+      <p>Rp 10.000</p>
+      <p class="product-description">Bug Menggunakan 3 Script Premium.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Dapet 3 Group Berbeda Script Tiap Grup</li>
+      <li>✓ Script Tredict Invictus</li>
+      <li>✓ Script Rexus Light</li>
+      <li>✓ Script Arsenic Caltus</li>
+      <li>✓ 100% Diurus</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="jasa">
+      <h4>Jasa Bug</h4>
+      <p>Rp 2.000 | 1x Bug</p>
+      <p>Rp 3.500 | 2x Bug</p>
+      <p class="product-description">Bug Menggunakan Script Premium, Ragu Ga Gacor? Bisa Di Tes Dulu</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Auto C1</li>
+      <li>✓ Bug Make Script Premium</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Panel Private', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="resellertopup">
+      <h4>Reseller Topup All Game [Gold]</h4>
+      <p>Rp 15.000</p>
+      <p class="product-description">Harga? Bisa Bersaing.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Bisa Open Topup Game</li>
+      <li>✓ Bisa Open Topup Pulsa</li>
+      <li>✓ Bisa Open Topup Voucher</li>
+      <li>✓ Harga Termurah</li>
+      <li>✓ Tanpa Biaya Admin</li>
+      <li>✓ Bisa Bersaing</li>
+      <li>✓ Bisa Request Game Jika Tidak Ada</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Rank Gold', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="resellertopup">
+      <h4>Reseller Topup All Game [Platinum]</h4>
+      <p>Rp 25.000</p>
+      <p class="product-description">Harga? Bisa Bersaing.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Bisa Open Topup Game</li>
+      <li>✓ Bisa Open Topup Pulsa</li>
+      <li>✓ Bisa Open Topup Voucher</li>
+      <li>✓ Harga Termurah</li>
+      <li>✓ Tanpa Biaya Admin</li>
+      <li>✓ Bisa Bersaing</li>
+      <li>✓ Bisa Request Game Jika Tidak Ada</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Rank Platinum', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+    
+    <div class="product" data-kategori="nokos">
+      <h4>Nokos All Negara</h4>
+      <p>Harga? Berbeda-Beda</p>
+      <p class="product-description">Tersedia Banyak Negara.</p>
+      <ul class="benefits"><li>Benefit:</li>
+      <li>✓ Dapet Nomer Berkualitas</li>
+      <li>✓ Tutor Agar Ga Cepet Kenon</li>
+      <li>✓ Tutor Biar Awet</li>
+      <li>✓ Dijamin Termurah</li>
+      <li>✓ Harga Menyesuaikan</li>
+     </ul>
+      <button class="order-button" onclick="openModal('Nokos Paling Gacor', '')">
+        <i class="fas fa-shopping-cart"></i> Order Disini
+      </button>
+    </div>
+
+    <!-- Tambahkan produk lainnya sesuai kebutuhan -->
+
+  </div>
+
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()"><i class="fas fa-times-circle"></i></span>
+      <h3 id="modalTitle">Judul Produk</h3>
+      <a id="waLink" href="#" target="_blank" class="whatsapp">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+      <a id="tgLink" href="https://t.me/fhkryxz" target="_blank" class="telegram">
+        <i class="fab fa-telegram-plane"></i> Telegram
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function openModal(title) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('waLink').href = `https://wa.me/6282224357429?text=Order+${encodeURIComponent(title)}`;
+      document.getElementById('orderModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function openMenu() {
+      document.getElementById('sideMenu').style.left = '0';
+    }
+
+    function closeMenu() {
+      document.getElementById('sideMenu').style.left = '-250px';
+    }
+
+    function filterProduk(kategori) {
+      const produk = document.querySelectorAll('.product');
+      produk.forEach(p => {
+        const kat = p.getAttribute('data-kategori');
+        if (kategori === 'all' || kat === kategori) {
+          p.style.display = 'block';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      closeMenu();
+    }
+  </script>
+</body>
+</html>
